@@ -40,6 +40,34 @@ def mine_init(a):   #地雷的初始化
             t=b.pop(t)
             a[i].append(t)
 
+
+def inmap(i,j): # 判断是否在地图内
+    if (i<0 or j < 0 or i>w-1 or j >h-1):
+        return False
+    return True
+
+
+def mine_count(a):
+    for i in range(h):
+        a.append([])
+        for j in range(w):
+            c=0 #计数器清零
+            q= i - 1
+            for k in range(j - 1,j+2):
+                if(inmap(q,k)):#如果在地图内，才数地雷
+                    if(mine_map[a][k] == 1):
+                        c+=1
+            q=i
+            for k in range(j-1,j+2,2):
+                if(inmap(q,k)):
+                    if(mine_map[q][k]== 1):
+                        c+=1
+            q=i+1
+            for k in range(j-1,j+2):
+                if(inmap(q,k)):
+                    if(mine_map[q][k]== 1):
+                        c+=1
+            a[i].append(c)
 def show_mine():#显示地雷
     print(" ",end = " ")
     for j in range(w):
